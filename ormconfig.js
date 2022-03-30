@@ -1,6 +1,6 @@
 require('dotenv/config');
 
-const config: ConnectionOptions = {
+const config = {
   type: 'postgres',
   database: 'postgres',
   synchronize: false, // do not use TRUE in production (loss data)
