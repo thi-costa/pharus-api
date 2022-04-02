@@ -1,9 +1,12 @@
-import { Module } from '@nestjs/common';
+import { DynamicModule, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import config from '../ormconfig';
+import ormconfig from '../ormconfig';
 
+export function DatabaseOrmModule(): DynamicModule {
+  return TypeOrmModule.forRoot(ormconfig);
+}
 @Module({
-  imports: [TypeOrmModule.forRoot(config)],
+  imports: [TypeOrmModule.forRoot(ormconfig)],
   controllers: [],
   providers: [],
 })
