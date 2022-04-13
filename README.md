@@ -44,6 +44,23 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+## Global packages
+```bash
+# install typeorm
+$ npm i -g typeorm
+
+# install ts-node
+$ npm install -g ts-node
+
+# install cross-env
+$ npm i -g cross-env
+```
+
+## Migrations
+```bash
+$ npm run typeorm migration:create -- -n StudentMigration
+```
+
 
 ## Test
 
