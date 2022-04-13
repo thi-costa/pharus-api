@@ -1,20 +1,64 @@
-import { MigrationInterface, QueryRunner } from 'typeorm';
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export class CreateTasksMigrationon1649448032685 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`
-      CREATE TABLE tasks (
-        id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-        title varchar(255) NOT NULL,
-        is_complete BOOLEAN NOT NULL,
-        description varchar(255) NOT NULL,
-        project_id UUID NOT NULL,
-        created_at timestamp DEFAULT CURRENT_TIMESTAMP,
-        updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
-        deleted_at timestamp,
-        FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE
-      );
-    `);
+    await queryRunner.createTable(
+      new Table({
+        name: 'tasks',
+        columns: [
+          {
+            name: 'id',
+            type: 'uuid',
+            isPrimary: true,
+            generationStrategy: 'uuid',
+            default: 'uuid_generate_v4()',
+          },
+          {
+            name: 'title',
+            type: 'varchar',
+            isNullable: false,
+          },
+          {
+            name: 'is_complete',
+            type: 'boolean',
+            isNullable: false,
+          },
+          {
+            name: 'description',
+            type: 'varchar',
+            isNullable: false,
+          },
+          {
+            name: 'created_at',
+            type: 'timestampt',
+            isNullable: false,
+            default: 'now()',
+          },
+          {
+            name: 'updated_at',
+            type: 'timestampt',
+            isNullable: false,
+            default: 'now()',
+          },
+          {
+            name: 'deleted_at',
+            type: 'timestampt',
+            isNullable: false,
+            default: 'now()',
+          },
+        ],
+        foreignKeys: [
+          {
+            name: 'FKProjectTask',
+            referencedTableName: 'projects',
+            referencedColumnNames: ['id'],
+            columnNames: ['project_id'],
+            onDelete: 'SET NULL',
+            onUpdate: 'SET NULL',
+          },
+        ],
+      }),
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
