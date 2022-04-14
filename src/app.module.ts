@@ -2,6 +2,7 @@ import { DynamicModule, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import envConfig from './config/env';
+import { SchoolsModule } from '@app/schools/schools.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import envConfig from './config/env';
         synchronize: false,
       }),
     }),
+    SchoolsModule,
   ],
   controllers: [],
   providers: [],
