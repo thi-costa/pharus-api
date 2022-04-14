@@ -40,12 +40,12 @@ export class School {
   @Column({ length: '255' })
   password: string;
 
-  @OneToMany(() => Student, (students) => students.school, {
+  @OneToMany((_type) => Student, (students) => students.school, {
     eager: true,
   })
   students: Student[];
 
-  @OneToMany(() => Project, (projects) => projects.school, {
+  @OneToMany((_type) => Project, (projects) => projects.school, {
     eager: true,
   })
   projects: Project[];

@@ -15,6 +15,7 @@ import { StudentGender } from '../../../app/students/student-gender.enum';
 import { SchoolShift } from '../../../app/students/student-schoolShift.enum';
 import { School } from '../../entities/schools/school.entity';
 import { Medal } from '../../entities/medals/medal.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity({ name: 'students' })
 export class Student {
@@ -58,7 +59,8 @@ export class Student {
   @JoinColumn({ name: 'medal_id' })
   medal: Medal;
 
-  @ManyToOne(() => School, (school) => school.students)
+  @ManyToOne((_type) => School, (school) => school.students, { eager: false })
+  @Exclude({ toPlainOnly: true })
   @JoinColumn({ name: 'school_id' })
   school: School;
 
