@@ -13,8 +13,8 @@ import {
 import { hashSync } from 'bcrypt';
 import { StudentGender } from '../../../app/students/student-gender.enum';
 import { SchoolShift } from '../../../app/students/student-schoolShift.enum';
-import { School } from '../../entities/schools/school.entity';
-import { Medal } from '../../entities/medals/medal.entity';
+import { School } from '../../../shared/entities/schools/school.entity';
+import { Medal } from '../../../shared/entities/medals/medal.entity';
 import { Exclude } from 'class-transformer';
 
 @Entity({ name: 'students' })
@@ -55,12 +55,11 @@ export class Student {
   @Column()
   score: number;
 
-  @OneToOne(() => Medal, (medal) => medal.student, { eager: true })
+  @OneToOne(() => Medal)
   @JoinColumn({ name: 'medal_id' })
   medal: Medal;
 
-  @ManyToOne((_type) => School, (school) => school.students, { eager: false })
-  @Exclude({ toPlainOnly: true })
+  @ManyToOne(() => School)
   @JoinColumn({ name: 'school_id' })
   school: School;
 

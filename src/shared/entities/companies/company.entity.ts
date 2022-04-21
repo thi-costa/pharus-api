@@ -10,7 +10,6 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { hashSync } from 'bcrypt';
-import { Project } from '../../entities/projects/project.entity';
 
 @Entity({ name: 'companies' })
 export class Company {
@@ -34,11 +33,6 @@ export class Company {
 
   @Column({ length: '255' })
   password: string;
-
-  @OneToMany(() => Project, (projects) => projects.company, {
-    eager: true,
-  })
-  projects: Project[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
