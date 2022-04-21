@@ -1,6 +1,6 @@
-import { Logger } from '@nestjs/common';
-import { CreateSchoolDto } from '@shared/dtos/schools/create-schools.dto';
-import { School } from '@shared/entities/schools/school.entity';
+import { InternalServerErrorException, Logger } from '@nestjs/common';
+import { CreateSchoolDto } from '../../shared/dtos/schools/create-schools.dto';
+import { School } from '../../shared/entities/schools/school.entity';
 import { EntityRepository, Repository } from 'typeorm';
 
 @EntityRepository(School)
@@ -8,19 +8,17 @@ export class SchoolRepository extends Repository<School> {
   private logger = new Logger('Schools repository', { timestamp: true });
 
   async createSchool(createSchoolDto: CreateSchoolDto): Promise<School> {
-    const { name, address, phone, username, email, password } = createSchoolDto;
+    try {
+      const school = this.create(createSchoolDto);
+      this.logger.verbose(`School: ${JSON.stringify(school)}
+       Created.`);
+      return this.save(school);
+    } catch (error) {
+      this.logger.error(
+        `Failed. School failed to creation: ${JSON.stringify(createSchoolDto)}`,
+      );
 
-    const school = this.create({
-      name,
-      address,
-      phone,
-      username,
-      email,
-      password,
-    });
-    this.logger.verbose(`School: ${school.username}`);
-    await this.save(school);
-
-    return school;
+      throw new InternalServerErrorException();
+    }
   }
 }

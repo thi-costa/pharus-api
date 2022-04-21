@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { SchoolsController } from './schools.controller';
-import { SchoolRepository } from './schools.repository';
-import { SchoolsService } from './schools.service';
+import { CreateSchoolsController } from '@app/schools/contexts/createSchools/createSchools.controller';
+import { SchoolRepository } from '@app/schools/schools.repository';
+import { CreateSchoolsService } from '@app/schools/contexts/createSchools/createSchools.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([SchoolRepository])],
-  controllers: [SchoolsController],
-  providers: [SchoolsService],
+  controllers: [CreateSchoolsController],
+  providers: [CreateSchoolsService],
 })
 export class SchoolsModule {}
