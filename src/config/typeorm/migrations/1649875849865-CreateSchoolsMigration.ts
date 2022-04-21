@@ -16,7 +16,6 @@ export class CreateSchoolsMigration1649875849865 implements MigrationInterface {
           {
             name: 'name',
             type: 'varchar',
-            isUnique: true,
             isNullable: false,
           },
           {
@@ -26,7 +25,7 @@ export class CreateSchoolsMigration1649875849865 implements MigrationInterface {
           },
           {
             name: 'phone',
-            type: 'int',
+            type: 'bigint',
             isNullable: false,
           },
           {
@@ -49,20 +48,17 @@ export class CreateSchoolsMigration1649875849865 implements MigrationInterface {
           {
             name: 'created_at',
             type: 'timestamp',
-            isNullable: false,
-            default: 'now()',
+            default: 'CURRENT_TIMESTAMP',
           },
           {
             name: 'updated_at',
             type: 'timestamp',
-            isNullable: false,
-            default: 'now()',
+            default: 'CURRENT_TIMESTAMP',
           },
           {
             name: 'deleted_at',
             type: 'timestamp',
-            isNullable: false,
-            default: 'now()',
+            isNullable: true,
           },
         ],
       }),

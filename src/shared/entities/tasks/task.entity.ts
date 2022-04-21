@@ -27,7 +27,7 @@ export class Task {
   @Column({ length: '255' })
   description: string;
 
-  @ManyToOne(() => Project, (project) => project.tasks)
+  @ManyToOne(() => Project)
   @JoinColumn({ name: 'project_id' })
   project: Project;
 

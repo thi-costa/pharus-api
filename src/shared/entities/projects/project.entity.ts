@@ -60,14 +60,11 @@ export class Project {
   @Column({ name: 'completion_status' })
   completionStatus: string;
 
-  @OneToMany(() => Task, (tasks) => tasks.project, { eager: true })
-  tasks: Task[];
-
-  @ManyToOne(() => Company, (company) => company.projects)
+  @ManyToOne(() => Company)
   @JoinColumn({ name: 'company_id' })
   company: Company;
 
-  @ManyToOne(() => School, (school) => school.projects)
+  @ManyToOne(() => School)
   @JoinColumn({ name: 'school_id' })
   school: School;
 

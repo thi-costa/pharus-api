@@ -95,20 +95,17 @@ export class CreateProjectsMigration1649875894131
           {
             name: 'created_at',
             type: 'timestamp',
-            isNullable: false,
-            default: 'now()',
+            default: 'CURRENT_TIMESTAMP',
           },
           {
             name: 'updated_at',
             type: 'timestamp',
-            isNullable: false,
-            default: 'now()',
+            default: 'CURRENT_TIMESTAMP',
           },
           {
             name: 'deleted_at',
             type: 'timestamp',
-            isNullable: false,
-            default: 'now()',
+            isNullable: true,
           },
         ],
         foreignKeys: [

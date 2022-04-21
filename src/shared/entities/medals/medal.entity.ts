@@ -48,7 +48,7 @@ export class Medal {
   @IsInt()
   bronze: number;
 
-  @OneToOne(() => Student, (student) => student.medal)
+  @OneToOne(() => Student)
   @JoinColumn({ name: 'student_id' })
   student: Student;
 
