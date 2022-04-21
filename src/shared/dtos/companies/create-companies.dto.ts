@@ -1,7 +1,6 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
 
-export class CreateSchoolDto {
-  @IsString()
+export class CreateCompanyDto {
   @IsNotEmpty()
   name: string;
 
@@ -12,10 +11,10 @@ export class CreateSchoolDto {
   phone: number;
 
   @IsNotEmpty()
-  username: string;
+  email: string;
 
   @IsNotEmpty()
-  email: string;
+  username: string;
 
   @IsNotEmpty()
   password: string;
