@@ -27,7 +27,7 @@ export class CreateCompaniesMigration1649875863760
           },
           {
             name: 'phone',
-            type: 'int',
+            type: 'bigint',
             isNullable: false,
           },
           {
@@ -50,20 +50,17 @@ export class CreateCompaniesMigration1649875863760
           {
             name: 'created_at',
             type: 'timestamp',
-            isNullable: false,
-            default: 'now()',
+            default: 'CURRENT_TIMESTAMP',
           },
           {
             name: 'updated_at',
             type: 'timestamp',
-            isNullable: false,
-            default: 'now()',
+            default: 'CURRENT_TIMESTAMP',
           },
           {
             name: 'deleted_at',
             type: 'timestamp',
-            isNullable: false,
-            default: 'now()',
+            isNullable: true,
           },
         ],
       }),
