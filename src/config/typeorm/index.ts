@@ -19,7 +19,13 @@ export default (configService: ConfigService): TypeOrmModuleOptions => {
       password: configService.get<string>('dbPassword', '14040315'),
       database: configService.get<string>('dbName', 'pharus-db'),
       autoLoadEntities: true,
-      entities: [`${__dirname}/dist/shared/entities/**/*.entity.{js|ts}`],
+      entities: [
+        'src/shared/entities/**/*.entity.ts',
+        'dist/shared/entities/**/*.entity.{js,ts}',
+      ],
+      cli: {
+        entitiesDir: 'src/shared/entities/**/'
+      }
     },
   };
 
