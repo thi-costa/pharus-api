@@ -1,90 +1,119 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+## Pharus API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-  
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Documentação de Desenvolvimento de Software
 
-## Description
+**Versão <1.0>**
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Introdução
 
-## Installation
+Este projeto mostra a proposta do projeto para o backend, com o Framework NestJS, seguindo as boas práticas indicadas na documentação do Framework, e utilizando-se do banco de dados PostgreSQL. 
+
+---
+
+## Finalidade
+
+Este documento detalha a visão geral do sistema, mostrando a estrutura utilizada no projeto e explicando melhor as decisões tomadas.
+
+---
+
+## Estrutura do Projeto
+
+O Nest é um framework utilizado para construir aplicações de servidor Node.js eficientes e escaláveis. Ele trabalha, de modo geral, com 3 camadas:
+
+1. Controller: essa camada recebe requisições para a aplicação e lida com as rotas;
+2. Camada de serviço (Services): essa camada se preocupa com a lógica do negócio, onde ocorrem todas as operações de CRUD;
+3. Camada de acesso a dados (Repositories): essa camada lida com a lógica de acesso a dados persistidos em algum banco.
+
+<img src="https://user-images.githubusercontent.com/41833533/164569320-deba31cc-4222-4549-b5ad-cfe47c2a3f86.png"/>
+
+A estrutura de projeto adotada foi utilizada de modo a dividir em módulos cada entidade da aplicação (companies, medals, etc), além de dividir o diretório referente a autenticação e às configurações do banco.
+
+O diretório shared armazena arquivos que se repetem em diversos módulos e compartilham de características semelhantes. A estrutura do projeto pode ser vista a seguir.
+
+<img src="https://user-images.githubusercontent.com/41833533/164569426-0ffd241c-64cd-4221-9744-eebe65cb2005.png"/>
+
+---
+
+## Desenvolvimento
+
+1. TS Template NestJs model
+
+Inicialização de projeto com template do NestJs.
+
+Comando do Nest CLI:
 
 ```bash
-$ npm install
+$ nest new pharus-api
 ```
 
-## Running the app
+1. Configuração do ORM para comunicação com banco
+2. Criação de entidades de projeto
+    1. Schools
+    2. Companies
+    3. Students
+    4. Projects
+    5. Tasks
+    6. Medals
+3. Inclusão de variáveis de ambiente: utilizado para garantir que será executado no ambiente desejado (se em produção ou desenvolvimento)
+4. Criação de objetos necessários como DTOs e enums
+5. Criação e execução de migrações para inicializar banco de dados
+6. Criação de serviço e rota para criação de escola
+7. Migração para inserção de dados iniciais de escola no banco
+
+---
+
+## Guia para Execução de Projeto
+
+Antes de executar projeto, crie suas variáveis de projeto em um arquivo .env na raiz do projeto.
+
+.env
 
 ```bash
-# development
-$ npm run start
+PORT=
+JWT_SECRET=
+EXPIRES_IN=
+DB_HOST=
+DB_PORT=
+DB_USERNAME=
+DB_PASSWORD=
+DB_DATABASE=
+TYPEORM_CONNECTION=
+TYPEORM_PORT=
+TYPEORM_ENTITIES=
+TYPEORM_ENTITIES_DIR=
+TYPEORM_MIGRATIONS=
+TYPEORM_MIGRATIONS_DIR=
+TYPEORM_SYNCHRONIZE=
+TYPEORM_USERNAME=
+TYPEORM_PASSWORD=
+TYPEORM_DATABASE=
+TYPEORM_HOST=
+TYPEORM_PORT=
+```
 
-# watch mode
+Aconselha-se seguir o seguinte passo-a-passo para execução do sistema em sua máquina local.
+
+```bash
+# Rodar migrations
+$ npm typeorm migration:run
+
+# Executar em modo de desenvolvimento
 $ npm run start:dev
 
-# production mode
+# Executar em modo de produção
 $ npm run start:prod
 ```
-## Global packages
-```bash
-# install typeorm
-$ npm i -g typeorm
 
-# install ts-node
-$ npm install -g ts-node
+---
 
-# install cross-env
-$ npm i -g cross-env
-```
+## Referências
 
-## Migrations
-```bash
-$ npm run typeorm migration:create -- -n StudentMigration
-```
+[1] Documentação do Framework NestJS. Disponível em: <[https://docs.nestjs.com/](https://docs.nestjs.com/)>
 
+[2] Documentação do JavaScript. Disponível em: <[https://developer.mozilla.org/pt-BR/docs/Web/JavaScript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)>
 
-## Test
+[3] Documentação do PostgreSQL. Disponível em: <[https://www.postgresql.org/docs/](https://www.postgresql.org/docs/)>
 
-```bash
-# unit tests
-$ npm run test
+[4] Documentação do TypeORM. Disponível em: <[https://typeorm.io/](https://typeorm.io/)>
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-  Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+[5] Guia para API REST. Disponível em: <[https://docs.github.com/pt/rest](https://docs.github.com/pt/rest)>
